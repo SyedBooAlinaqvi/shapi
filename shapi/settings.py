@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -140,3 +141,5 @@ CLOUDINARY_STORAGE = {
         'API_KEY': '394429588748526',
         'API_SECRET': 'f_JNR4OZDo0XG6UHsJlmKRSAY7E'
 }
+
+django_heroku.settings(locals())

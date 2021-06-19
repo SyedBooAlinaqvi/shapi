@@ -27,7 +27,9 @@ SECRET_KEY = '=6_eaum19tsb0+!2(rtwtyoy&erj-_7s1hhr0uns8%-4y=)&i4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'shapiii.herokuapp.com'
+]
 
 
 # Application definition

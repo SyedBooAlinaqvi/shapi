@@ -2,7 +2,7 @@ from django.http import response
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render
 # from django.contrib.auth.models import auth
-from .models import Users
+from .models import Users, Meetings, Social_links
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 import json
@@ -15,13 +15,6 @@ from uuid import uuid4
 @csrf_exempt
 def users(request):
     if request.method == "POST":
-        # first_name = request.POST['first_name']
-        # last_name = request.POST['last_name']
-        # user_name = request.POST['user_name']
-        # password = request.POST['password']
-        # confirm_password = request.POST['confirm_password']
-        # email = request.POST['email'] 
-        
         name = request.POST['name']
         email = request.POST['email']
         password = request.POST['password']
@@ -100,6 +93,64 @@ def login(request):
             return JsonResponse(data)
 
     else:
-        return HttpResponse('login Not Supported')
+        return HttpResponse('Login Not Supported')
             
-        
+
+@csrf_exempt
+def meeting(request):
+    if request.method == "POST":
+        user_id = request.POST['user_id']
+        link = request.POST['link']
+        if (Users.objects.filter(id=user_id).exists()):
+            meeting_link = Meetings(link=link, user_id=user_id)
+            meeting_link.save()
+            data = {}
+            data['error'] = False
+            data['success_msg'] = 'Meeting_link saved successfully' 
+            return JsonResponse(data) 
+        else:
+            data = {}
+            data['error'] = True
+            data['error_msg'] = 'User_id doesnot exist please enter the valid User_id!'
+            return JsonResponse(data)
+
+    else:
+        return HttpResponse('Meeting Not Supported')
+
+
+@csrf_exempt
+def social(request):
+    if request.method == "POST":
+        user_id = request.POST['user_id']
+        insta = request.POST['insta']
+        fb = request.POST['fb']
+        linkedIn = request.POST['linkedIn']
+        youtube = request.POST['youtube']
+        if (Users.objects.filter(id=user_id).exists()):
+            if (Social_links.objects.filter(user_id=user_id).exists()):
+                links = Social_links.objects.get(user_id = user_id)
+                links.insta = insta
+                links.fb = fb
+                links.linkedIn = linkedIn
+                links.youtube = youtube
+                links.save()
+                data = {}
+                data['error'] = False
+                data['success_msg'] = 'Social_link updated successfully' 
+                return JsonResponse(data)
+            else:
+                social_link = Social_links(user_id=user_id, insta=insta, fb=fb, linkedIn=linkedIn, youtube=youtube)
+                social_link.save()
+                data = {}
+                data['error'] = False
+                data['success_msg'] = 'Social_link saved successfully' 
+                return JsonResponse(data) 
+                
+        else:
+            data = {}
+            data['error'] = True
+            data['error_msg'] = 'User_id doesnot exist please enter the valid User_id!'
+            return JsonResponse(data)
+
+    else:
+        return HttpResponse('Social Not Supported')

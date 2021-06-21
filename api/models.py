@@ -9,3 +9,16 @@ class Users(models.Model):
     phone_no = models.CharField(max_length=30, null=True)
     image = models.ImageField(upload_to='images', null=True)
     
+    
+class Meetings(models.Model):
+    user_id = models.IntegerField()
+    link = models.CharField(max_length=255)
+    
+
+class Social_links(models.Model):
+    user_id = models.IntegerField()
+    insta = models.CharField(max_length=255, null=True)
+    fb = models.CharField(max_length=255, null=True)
+    linkedIn = models.CharField(max_length=255, null=True)
+    youtube = models.CharField(max_length=255, null=True)
+    

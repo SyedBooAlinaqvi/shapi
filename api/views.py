@@ -48,6 +48,8 @@ def users(request):
             return JsonResponse(data)
         user = Users(name=name, email=email, password=password, profession=profession, phone_no=phone_no, image=images)
         user.save()
+        user = Social_links(user_id = user.pk)
+        user.save()
         # user = Users.objects.get(id=user.pk)
         data = {}
         data['error'] = False

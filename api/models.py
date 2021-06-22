@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 
 # Create your models here.
 class Users(models.Model):
@@ -11,11 +12,13 @@ class Users(models.Model):
     
     
 class Meetings(models.Model):
+    # users = models.ForeignKey(Users, on_delete=models.CASCADE, default=1) 
     user_id = models.IntegerField()
     link = models.CharField(max_length=255)
     
 
 class Social_links(models.Model):
+    # users = models.OneToOneField(Users, on_delete=models.CASCADE, default=1)
     user_id = models.IntegerField()
     insta = models.CharField(max_length=255, null=True)
     fb = models.CharField(max_length=255, null=True)

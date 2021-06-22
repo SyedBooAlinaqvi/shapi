@@ -87,27 +87,27 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql', 
-    #     'NAME': 'howgh',
-    #     'USER': 'shapi',
-    #     'PASSWORD': '1234',
-    #     'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-    #     'PORT': '3306',
-    # }
-    
-    
     'default': {
-        'ENGINE': 'django.db.backends.postgresql', 
-        'NAME': 'd9fgo0dornlkdh',
-        'USER': 'faawfvkjkqmxfs',
-        'PASSWORD': '522fd9d6056ebe4284d4251043a8f477d930fe6ff3037ffa8c78bb6b9c3f6877',
-        'HOST': 'ec2-3-215-57-87.compute-1.amazonaws.com',   # Or an IP Address that your DB is hosted on
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'howgh',
+        'USER': 'shapi',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
+    
+    
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql', 
+    #     'NAME': 'dfghdjrc5cq7vc',
+    #     'USER': 'uirtjgdvhwjlzo',
+    #     'PASSWORD': 'd18734501f32e1b52a19ce1c9a381c05891b137069064d6ee4bb080875bfacee',
+    #     'HOST': 'ec2-3-214-136-47.compute-1.amazonaws.com',   # Or an IP Address that your DB is hosted on
+    #     'PORT': '5432',
+    # }
 }
+# postgres://uirtjgdvhwjlzo:d18734501f32e1b52a19ce1c9a381c05891b137069064d6ee4bb080875bfacee@ec2-3-214-136-47.compute-1.amazonaws.com:5432/dfghdjrc5cq7vc
 
-# postgres://faawfvkjkqmxfs:522fd9d6056ebe4284d4251043a8f477d930fe6ff3037ffa8c78bb6b9c3f6877@ec2-3-215-57-87.compute-1.amazonaws.com:5432/d9fgo0dornlkdh
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

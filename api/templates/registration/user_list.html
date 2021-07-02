@@ -1,0 +1,79 @@
+{% extends 'registration/basic.html' %}
+{% load static%}
+{% block title %} List of Users {% endblock %}
+{% block topbar %} User's List {% endblock %}
+{% block css %}
+ <!-- DataTables -->
+<link href="{% static 'assets/plugins/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'assets/plugins/datatables/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+<!-- Responsive datatable examples -->
+<link href="{% static 'assets/plugins/datatables/responsive.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %}
+<div class="page-content-wrapper">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-body">
+
+                        <h4 class="mt-0 header-title">Users List</h4>
+
+                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap"
+                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>E-mail</th>
+                                    <th>Phone No</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.phone_no }}</td>
+                                    <td class="text-center "> 
+                                        <a href="{% url 'DetailOfUsers' pk=user.id %}"  class="btn btn-outline-primary waves-effect waves-light"><i class="mdi mdi-account-card-details" ></i></a>
+                                        &nbsp
+                                        <a href="{% url 'UserDelete' pk=user.id %}" value="{{user.id}}"  class="btn btn-outline-danger waves-effect waves-light"><i class="fa fa-user-times fa-md" ></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+        {% endblock %}
+
+
+        {% block js %}
+        <!-- Required datatable js -->
+        <script src="{% static 'assets/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
+        <!-- Buttons examples -->
+        <script src="{% static 'assets/plugins/datatables/dataTables.buttons.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/datatables/buttons.bootstrap4.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/datatables/jszip.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/datatables/pdfmake.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/datatables/vfs_fonts.js"></script>
+        <script src="{% static 'assets/plugins/datatables/buttons.html5.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/datatables/buttons.print.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/datatables/buttons.colVis.min.js' %}"></script>
+        <!-- Responsive examples -->
+        <script src="{% static 'assets/plugins/datatables/dataTables.responsive.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/datatables/responsive.bootstrap4.min.js' %}"></script>
+
+        <!-- Datatable init js -->
+        <script src="{% static 'assets/pages/datatables.init.js' %}"></script>
+        {% endblock %}

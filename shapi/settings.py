@@ -28,13 +28,16 @@ SECRET_KEY = '=6_eaum19tsb0+!2(rtwtyoy&erj-_7s1hhr0uns8%-4y=)&i4'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'shapiii.herokuapp.com'
+    'shapiii.herokuapp.com',
 ]
+LOGIN_REDIRECT_URL = 'Dashboard'
 
+LOGIN_URL = 'AdminLogin'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'api.apps.ApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,19 +46,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary_storage',
     'cloudinary',
-    'api',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SESSION_EXPIRE_SECONDS = 3600  
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY_GRACE_PERIOD = 60 # group by minute
+SESSION_TIMEOUT_REDIRECT = 'AdminLogin'
 
 ROOT_URLCONF = 'shapi.urls'
 
@@ -160,7 +168,21 @@ CLOUDINARY_STORAGE = {
 
 django_heroku.settings(locals())
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'saadmb1995@gmail.com'
+EMAIL_HOST_PASSWORD = 'ililoncqgepunhlm'
+
+# jxwkvspmxrvhkhmt  my app password from google id= syed.booali2@gmail.com
 
 
-
-
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher'
+)

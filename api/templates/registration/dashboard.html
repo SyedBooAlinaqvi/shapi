@@ -1,0 +1,186 @@
+{% extends 'registration/basic.html' %}
+{% load static %}
+{% block title %} List of Users {% endblock %}
+{% block topbar %} Dashboard {% endblock %}
+{% block css %}
+<!--Morris Chart CSS -->
+<!-- <link rel="stylesheet" href="{% static 'assets/plugins/morris/morris.css' %}"> -->
+{% endblock %}
+
+
+
+
+<!-- ==================
+    PAGE CONTENT START
+    ================== -->
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-xl-3">
+            <div class="card text-center m-b-30">
+                <div class="mb-2 card-body text-muted">
+                    <h3 class="text-info">15,852</h3>
+                    Monthly Statistics
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card text-center m-b-30">
+                <div class="mb-2 card-body text-muted">
+                    <h3 class="text-purple">9,514</h3>
+                    New Orders
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card text-center m-b-30">
+                <div class="mb-2 card-body text-muted">
+                    <h3 class="text-primary">289</h3>
+                    New Users
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card text-center m-b-30">
+                <div class="mb-2 card-body text-muted">
+                    <h3 class="text-danger">5,220</h3>
+                    Unique Visitors
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+    <div class="row">
+        
+        <div class="col-xl-12">
+            <div class="card m-b-30">
+                <div class="card-body">
+                    <h4 class="mt-0 header-title">Registered Users per month</h4>
+
+                    
+                    <canvas id="myChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card m-b-30">
+            <div class="card-body">
+                <h4 class="mt-0 m-b-30 header-title">Latest Users</h4>
+
+                <div class="table-responsive">
+                    <table class="table m-t-20 mb-0 table-vertical">
+
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>
+                                    <img src="{{user.image.url}}" alt="user-image"
+                                        class="thumb-sm rounded-circle mr-2" />
+                                    {{user.name}}
+
+                                </td>
+                                <td><i class="mdi mdi-checkbox-blank-circle text-success"></i>
+                                    {{user.phone_no}}
+                                    <p class="m-0 text-muted font-14">Phone No.</p>
+                                    </td>
+                                <td>
+                                    {{user.profession}}
+                                    <p class="m-0 text-muted font-14">Profession</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                            
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<!-- end row -->
+
+
+
+<!-- End Right content here -->
+
+<!-- END wrapper -->
+{% endblock %}
+{% block js %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+var url = "{% url 'monthly_registration_chart' %}";
+$.get(url).then(function(result){
+    console.log(result)
+    var months = result.months
+    var users = result.users_count
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: months.reverse(),
+            datasets: [{
+                label: 'Registered Users',
+                data: users.reverse(),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });  
+})
+{% comment %} var ctx = document.getElementById('myChart').getContext('2d');   
+fig, ax = plt.subplots(figsize=(12, 12))
+
+
+ax.bar(precip_june_aug_2005.index.values,
+       precip_june_aug_2005['DAILY_PRECIP'],
+       color='purple')
+
+
+ax.set(xlabel="Date",
+       ylabel="Precipitation (inches)",
+       title="Daily Total Precipitation\nJune - Aug 2005 for Boulder Creek")
+
+
+date_form = DateFormatter("%m-%d")
+ax.xaxis.set_major_formatter(date_form)
+
+plt.show() {% endcomment %}
+    
+</script>
+
+{% endblock %}
